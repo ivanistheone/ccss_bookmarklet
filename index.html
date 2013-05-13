@@ -7,7 +7,6 @@
 
 
 
-
   </head>
 
 
@@ -49,6 +48,79 @@
   </ul>
 
 
+
+  <!--  Let's get things started and import the libs -->
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/underscore.js"></script>
+
+  <script type="text/javascript">
+  
+    // Load the application once the DOM is ready, using `jQuery.ready`:
+    var CClookup = {};      // == window.CClookup
+    
+
+    // setup lookuptable and aliases
+    var setupLUT = function ( ) {
+      var i;
+      var raw_data = window.CClookup["raw_data"];
+      var LUT = {};
+      window.CClookup["LUT"] = LUT; 
+
+      for (i=0; i<raw_data.length; i++) {
+        LUT[ raw_data[i].shortCode ] = raw_data[i].statement ;
+        LUT[ "CC." + raw_data[i].shortCode ] = "redirect:"+raw_data[i].shortCode ;
+        LUT[ "Math." + raw_data[i].shortCode ] = "redirect:"+raw_data[i].shortCode ;
+      }
+    };
+
+
+    // lookup function --- follows redirects
+    var doLookup = function ( q ) {
+
+      statement = window.CClookup["LUT"][ q ];
+      // statement could be the full statement or a redirect 
+     
+      if (!statement){    // not found then return null...
+        return null;
+      }
+      if (statement.substring(0,9)==="redirect:"){
+        statement = window.CClookup["LUT"][ statement.substring(9) ];
+      }
+      return statement;
+
+    };
+
+
+
+
+    // LOAD DATA
+    $.getJSON('js/ccss_data_for_bookmarklet.json', function(response){
+       window.CClookup["raw_data"] = response;
+       console.log("Loaded data");
+    })
+    .success(function() { 
+      console.log("second success"); 
+      setupLUT();
+    })
+    .error(function() { alert("error"); })
+    .complete(function() { console.log("complete"); });
+  
+
+
+
+
+
+  </script>
+
+
+
+
+
+
+
+
 </html>
+
+
 
 
