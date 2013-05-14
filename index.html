@@ -27,16 +27,33 @@
     <li>Now you will see a description of each standard when you hover over the text.</li>
   </ol>
   
+
+
   <h2>Lookups</h2>
 
-  <p>The following type of codes are recognized:</p>
+    <p>The following type of codes are recognized:</p>
+    <ul>
+      <li> <code>6.EE.1</code>: The shortest possible.</li>
+      <li> <code>CC.6.EE.1</code>: In use at Khan Academy </li>
+      <li> <code>Math.6.EE.1</code>: The official long code </li>
+    </ul>
+    All of these will show the popup: "Write and evaluate numerical expressions involving whole-number exponents."
 
-  <ul>
-    <li> <code>6.EE.1</code>: The shortest possible.</li>
-    <li> <code>CC.6.EE.1</code>: In use at Khan Academy </li>
-    <li> <code>Math.6.EE.1</code>: The official long code </li>
-  </ul>
-  All of these will show the popup: "Write and evaluate numerical expressions involving whole-number exponents."
+  
+  <h2>Test strings</h2>
+
+    <p>
+    HS.N-CN.1<br/>
+    should return something like: "Know there is a complex number i such that
+    i\u00b2 = \u20141, and every complex number has the form a + bi with a and
+    b real." <br/>
+    possibly with better rendering of the Unicode characters ;) 
+    </p>
+
+
+
+
+  
 
   <h2>Credits</h2>
   <ul>
@@ -57,7 +74,6 @@
     <div class='share-highlight-btn'>
       <div class='btn-caret'> </div>
       <div class='btn-left' id="tooltiptext">Hey there!</div>
-      <div class='btn-right'>&times;</div>
     </div>
   </span>
 
@@ -111,7 +127,7 @@
 
 
     // LOAD DATA
-    $.getJSON('js/ccss_data_for_bookmarklet.json', function(response){
+    $.getJSON('js/ccss_data.json', function(response){
        window.CClookup["raw_data"] = response;
        console.log("Loaded data");
     })
@@ -119,7 +135,7 @@
       console.log("second success"); 
       setupLUT();
     })
-    .error(function() { alert("error"); })
+    .error(function() { alert("error: could not load js/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
     .complete(function() { console.log("complete"); });
   
 

@@ -3,7 +3,7 @@
 
 .share-highlight-btn {
     position: absolute;
-    width: 300px;
+    width: 400px;
     top: 25px;
     left: -30px;
 }      
@@ -62,9 +62,8 @@
   border: 1px solid #bbbbbb;
   border-bottom-width: 2px;
   cursor: pointer;
-  font: bold 14px/30px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: bold 12px/15px "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444444;
-  text-shadow: white 0 1px 1px;
   -webkit-box-shadow: rgba(0, 0, 0, .1) 0px 1px 3px;
      -moz-box-shadow: rgba(0, 0, 0, .1) 0px 1px 3px;
           box-shadow: rgba(0, 0, 0, .1) 0px 1px 3px;
@@ -94,17 +93,11 @@
 
 .btn-left {
   border-right-color: #ffffff;
-  -webkit-border-radius: 4px 0 0 4px;
-     -moz-border-radius: 4px 0 0 4px;  
-          border-radius: 4px 0 0 4px;  
+  -webkit-border-radius: 4px 4px 4px 4px;
+     -moz-border-radius: 4px 4px 4px 4px;  
+          rorder-radius: 4px 4px 4px 4px;  
 }
 
-.btn-right {
-  border-left-color: #999999;
-  -webkit-border-radius: 0 4px 4px 0;
-     -moz-border-radius: 0 4px 4px 0;
-          border-radius: 0 4px 4px 0;
-}
 
 
 
