@@ -6,9 +6,11 @@
     <title>CC bookmarklet</title>
 
 
+    <link rel="stylesheet" href="css/highlighter.css"/>
 
   </head>
 
+<body>
 
 
   <h1> CCSS bookmarklet</h1>
@@ -49,9 +51,24 @@
 
 
 
+
+
+  <span class='holder'>
+    <div class='share-highlight-btn'>
+      <div class='btn-caret'> </div>
+      <div class='btn-left' id="tooltiptext">Hey there!</div>
+      <div class='btn-right'>&times;</div>
+    </div>
+  </span>
+
+
+
+
   <!--  Let's get things started and import the libs -->
   <script src="js/vendor/jquery.js"></script>
   <script src="js/vendor/underscore.js"></script>
+  <script type="text/javascript" src="js/vendor/jQuery.highlighter.js"></script>
+
 
   <script type="text/javascript">
   
@@ -106,8 +123,64 @@
     .complete(function() { console.log("complete"); });
   
 
+    // Hack for Trello board
+    // prefent default click handler when ALT is pressed 
+    //jQuery('div.card-detail-desc').on('click', function(event) { 
+    jQuery('window-main-col').on('click', function(event) { 
+        if(event.altKey) {
+            event.preventDefault(); 
+            console.log("ALT");
+            console.log( window.getSelection() );
+            return false;
+            //event.stopPropagation(); 
+        }
+        console.dir(event);
+    });
+
+    // TODO figure out how to handle window.location change to rerun the above!
+  /*
+    jQuery('.window-wrapper').get(0).addEventListener('click', function(e) {
+      // In Trello, click switches to edit mode. Hold Alt to while selecting text to work around this
+      if(e.altKey) { 
+        console.log("alt clicked2", e);
+        console.log( window.getSelection() );
 
 
+        //
+        e.stopPropagation();
+        return false;
+      }
+      // if no ALT don't do anything.
+
+    }, true);
+
+
+*/
+
+
+jQuery(document).ready(function($) {
+
+
+    $('body').highlighter({ 'selector': '.holder',
+                             'minWords': 0,
+                             'complete': function (data) {  
+                                            var statement =  doLookup( data ) || "na" ;
+                                            console.log(data);
+                                            $("#tooltiptext").text(statement) ; 
+                              }
+                          });
+
+    $('.holder').mousedown(function(){
+        return false;
+    });
+
+    $('.btn-right').click(function(){
+        $('.holder').hide();
+        return false;
+    });
+
+
+});
 
 
   </script>
@@ -117,6 +190,7 @@
 
 
 
+</body>
 
 
 </html>
