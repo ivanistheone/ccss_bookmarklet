@@ -13,9 +13,14 @@
 })();
 
 function requireDeps() {
-  yepnope([{
-              test: typeof(window.jQuery) === 'undefined' || jQuery.fn.jquery.match(/^1\.[0-9]+/) <= 1.4,
-              yep: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+  yepnope([{ test: typeof(window.jQuery) === 'undefined' || jQuery.fn.jquery.match(/^1\.[0-9]+/) <= 1.4,
+              yep: ['//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js']
+            },
+            { test: typeof(window.CClookup) === 'undefined' || typeof(window.CClookup.raw_data) === 'undefined',
+               yep: ['//raw.github.com/ivanistheone/ccss_bookmarklet/gh-pages/data/ccss_data.js'],
+               complete: function( url, result, key) {
+                  console.log("Loaded data");
+               }
             },
             {
               test: typeof(window.jQuery) === 'undefined' || typeof(jQuery.fn.highlighter) === 'undefined',
@@ -33,21 +38,6 @@ function initMyBookmarklet($) {
     // Setup
     window.CClookup = {};                           // The  namespace we will work in
 
-    // LOAD DATA
-    $.getJSON('//raw.github.com/ivanistheone/ccss_bookmarklet/gh-pages/data/ccss_data.json', function(response){
-      window.CClookup["raw_data"] = response;
-      console.log("Loaded data");
-      window.CClookup.setupLUT();
-    })
-    // nice stuff, but requires modern jQuery
-    //.success(function() {
-    //  console.log("second success");
-    //})
-    //.error(function() { alert("error: could not load data/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
-    //.complete(function() { console.log("ccss_data_loadign_complete"); });
-
-
-
     // setup lookuptable and aliases
     CClookup.setupLUT = function ( ) {
       var i;
@@ -58,7 +48,7 @@ function initMyBookmarklet($) {
       for (i=0; i<raw_data.length; i++) {
         LUT[ raw_data[i].shortCode ] = raw_data[i].statement ;
         LUT[ "CC." + raw_data[i].shortCode ] = "redirect:"+raw_data[i].shortCode ;
-        LUT[ "Math." + raw_data[i].shortCode ] = "redirect:"+raw_data[i].shortCode ;
+        LUT[ "Math." + raw_data[i].shortCode ] = "redirect:"+aaw_data[i].shortCode ;
       }
     };
 
@@ -76,9 +66,10 @@ function initMyBookmarklet($) {
     // on document ready
     $(function() { 
         console.log("Setting up CClookup on the document body");
+        window.CClookup.setupLUT();
 
         // setup highlighter
-        $('body').highlighter({ 'selector': '.holder',
+        $('body').highlighter({  'selector': '.holder',
                                  'minWords': 0,
                                  'complete': function (data) {
                                                 var statement =  window.CClookup.doLookup( data ) || "na" ;

@@ -1,4 +1,5 @@
-[
+if (!window.CClookup){ window.CClookup = {}; };
+window.CClookup.raw_data = [
   {
     "shortCode": "MP.1", 
     "statement": "Make sense of problems and persevere in solving them."
@@ -2067,4 +2068,6 @@
     "shortCode": "HS.S-MD.7", 
     "statement": "(+) Analyze decisions and strategies using probability concepts (e.g., product testing, medical testing, pulling a hockey goalie at the end of a game)."
   }
-]
+];
+
+
