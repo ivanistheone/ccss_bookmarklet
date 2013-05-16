@@ -33,7 +33,7 @@ function initMyBookmarklet($) {
     // Setup
     window.CClookup = {};                           // The  namespace we will work in
 
-    $.getJSON('js/ccss_data_for_bookmarklet.json', function(response){
+    $.getJSON('//raw.github.com/ivanistheone/ccss_bookmarklet/gh-pages/data/ccss_data.json', function(response){
        window.CClookup["raw_data"] = response;
        alert("Loaded data");
     })
