@@ -19,7 +19,7 @@ function requireDeps() {
             },
             {
               test: typeof(window.jQuery) === 'undefined' || typeof(jQuery.fn.highlighter) === 'undefined',
-              yep: ['https://raw.github.com/huffpostlabs/highlighter.js/master/jQuery.highlighter.js'],
+              yep: ['//raw.github.com/huffpostlabs/highlighter.js/master/jQuery.highlighter.js'],
               complete: function (url, result, key) {
                 initMyBookmarklet(jQuery);
               }
@@ -33,14 +33,18 @@ function initMyBookmarklet($) {
     // Setup
     window.CClookup = {};                           // The  namespace we will work in
 
+    // LOAD DATA
     $.getJSON('//raw.github.com/ivanistheone/ccss_bookmarklet/gh-pages/data/ccss_data.json', function(response){
-       window.CClookup["raw_data"] = response;
-       alert("Loaded data");
+      window.CClookup["raw_data"] = response;
+      console.log("Loaded data");
     })
-    //feel free to use chained handlers, or even make custom events out of them!
-    .success(function() { alert("second success"); })
-    .error(function() { alert("error"); })
-    .complete(function() { alert("complete"); });
+    .success(function() {
+      console.log("second success");
+      window.CClookup.setupLUT();
+    })
+    .error(function() { alert("error: could not load data/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
+    .complete(function() { console.log("ccss_data_loadign_complete"); });
+
 
 
     // setup lookuptable and aliases
@@ -76,7 +80,7 @@ function initMyBookmarklet($) {
         $('body').highlighter({ 'selector': '.holder',
                                  'minWords': 0,
                                  'complete': function (data) {
-                                                var statement =  CClookup.doLookup( data ) || "na" ;
+                                                var statement =  window.CClookup.doLookup( data ) || "na" ;
                                                 console.log(data);
                                                 $("#tooltiptext").text(statement) ;
                                   }
