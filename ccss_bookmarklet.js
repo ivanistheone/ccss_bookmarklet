@@ -36,7 +36,7 @@ function requireDeps() {
 function initMyBookmarklet($) {
 
     // Setup
-    window.CClookup = {};                           // The  namespace we will work in
+    window.CClookup = window.CClookup || {};                           // The  namespace we will work in
 
     // setup lookuptable and aliases
     CClookup.setupLUT = function ( ) {
