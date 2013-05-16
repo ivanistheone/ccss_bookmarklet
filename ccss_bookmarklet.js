@@ -37,13 +37,14 @@ function initMyBookmarklet($) {
     $.getJSON('//raw.github.com/ivanistheone/ccss_bookmarklet/gh-pages/data/ccss_data.json', function(response){
       window.CClookup["raw_data"] = response;
       console.log("Loaded data");
-    })
-    .success(function() {
-      console.log("second success");
       window.CClookup.setupLUT();
     })
-    .error(function() { alert("error: could not load data/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
-    .complete(function() { console.log("ccss_data_loadign_complete"); });
+    // nice stuff, but requires modern jQuery
+    //.success(function() {
+    //  console.log("second success");
+    //})
+    //.error(function() { alert("error: could not load data/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
+    //.complete(function() { console.log("ccss_data_loadign_complete"); });
 
 
 
