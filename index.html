@@ -91,14 +91,12 @@
     // Load the application once the DOM is ready, using `jQuery.ready`:
     var CClookup = {};      // == window.CClookup
     
-
-    // setup lookuptable and aliases
+    // setup lookup table and aliases
     var setupLUT = function ( ) {
       var i;
       var raw_data = window.CClookup["raw_data"];
       var LUT = {};
       window.CClookup["LUT"] = LUT; 
-
       for (i=0; i<raw_data.length; i++) {
         LUT[ raw_data[i].shortCode ] = raw_data[i].statement ;
         LUT[ "CC." + raw_data[i].shortCode ] = "redirect:"+raw_data[i].shortCode ;
@@ -106,17 +104,15 @@
       }
     };
 
-
     // lookup function --- follows redirects
     var doLookup = function ( q ) {
+      statement = window.CClookup["LUT"][ q ];          // statement could be the full statement or a redirect 
 
-      statement = window.CClookup["LUT"][ q ];
-      // statement could be the full statement or a redirect 
-     
-      if (!statement){    // not found then return null...
+      if (!statement){                                  // not found then return null...
         return null;
       }
-      if (statement.substring(0,9)==="redirect:"){
+
+      if (statement.substring(0,9)==="redirect:"){      
         statement = window.CClookup["LUT"][ statement.substring(9) ];
       }
       return statement;
@@ -125,18 +121,17 @@
 
 
 
-
     // LOAD DATA
-    $.getJSON('js/ccss_data.json', function(response){
-       window.CClookup["raw_data"] = response;
-       console.log("Loaded data");
+    $.getJSON('data/ccss_data.json', function(response){
+      window.CClookup["raw_data"] = response;
+      console.log("Loaded data");
     })
     .success(function() { 
       console.log("second success"); 
       setupLUT();
     })
-    .error(function() { alert("error: could not load js/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
-    .complete(function() { console.log("complete"); });
+    .error(function() { alert("error: could not load data/ccss_data.json. (Plz view on a server bcs ajax req. not allowed on a  file:// "); })
+    .complete(function() { console.log("ccss_data_loadign_complete"); });
   
 
     // Hack for Trello board
