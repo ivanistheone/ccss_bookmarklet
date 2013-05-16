@@ -15,7 +15,7 @@
 function requireDeps() {
   yepnope([{
               test: typeof(window.jQuery) === 'undefined' || jQuery.fn.jquery.match(/^1\.[0-9]+/) <= 1.4,
-              yep: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.4.4/jquery.min.js'
+              yep: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'
             },
             {
               test: typeof(window.jQuery) === 'undefined' || typeof(jQuery.fn.highlighter) === 'undefined',
